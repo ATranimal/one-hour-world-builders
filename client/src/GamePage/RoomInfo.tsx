@@ -8,11 +8,11 @@ import "./RoomInfo.scss";
 interface RoomInfoProps {
   gameState: GameState;
   roomName: string;
-  userName: string;
+  skipTurn: () => void;
 }
 
 export const RoomInfo = (props: RoomInfoProps) => {
-  const { gameState, roomName, userName } = props;
+  const { gameState, roomName, skipTurn } = props;
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -25,6 +25,7 @@ export const RoomInfo = (props: RoomInfoProps) => {
       <PlayerList
         players={gameState?.players}
         activePlayerIndex={gameState.playerTurn}
+        skipTurn={skipTurn}
       />
     </div>
   );

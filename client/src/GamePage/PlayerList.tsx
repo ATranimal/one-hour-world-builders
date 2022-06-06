@@ -5,10 +5,13 @@ import "./PlayerList.scss";
 interface PlayerListProps {
   players: string[] | null;
   activePlayerIndex: number | null;
+  skipTurn: () => void;
 }
 
 export const PlayerList = (props: PlayerListProps) => {
-  const { players, activePlayerIndex } = props;
+  const { players, activePlayerIndex, skipTurn } = props;
+
+  console.log(activePlayerIndex);
 
   return (
     <div className="player-count">
@@ -26,6 +29,15 @@ export const PlayerList = (props: PlayerListProps) => {
           </div>
         );
       })}
+      {activePlayerIndex !== null && (
+        <button
+          onClick={() => {
+            skipTurn();
+          }}
+        >
+          Skip Turn
+        </button>
+      )}
     </div>
   );
 };

@@ -123,82 +123,97 @@ io.on("connection", function (socket) {
   ``;
   socket.on("nextTurn", (roomName, cardType) => {
     if (Object.keys(rooms).includes(roomName)) {
-      let newCardID = 0;
-
-      if (cardType === 1) {
-        maxEventRange = EVENT_RANGE[1] - EVENT_RANGE[0];
-        let eventCardCount = 0;
-        rooms[roomName].cards.forEach((card) => {
-          if (getCardTypeFromID(card) === 1) {
-            eventCardCount++;
-          }
-        });
-
-        if (eventCardCount < maxEventRange) {
-          let cardAlreadyExists = true;
-          while (cardAlreadyExists) {
-            newCardID = getRandomInt(EVENT_RANGE[0], EVENT_RANGE[1]);
-
-            if (!rooms[roomName].cards.includes(newCardID)) {
-              cardAlreadyExists = false;
-            }
-          }
-        }
-      }
-      if (cardType === 2) {
-        maxThingRange = THING_RANGE[1] - THING_RANGE[0];
-        let thingCardCount = 0;
-        rooms[roomName].cards.forEach((card) => {
-          if (getCardTypeFromID(card) === 2) {
-            thingCardCount++;
-          }
-        });
-
-        if (thingCardCount < maxThingRange) {
-          let cardAlreadyExists = true;
-          while (cardAlreadyExists) {
-            newCardID = getRandomInt(THING_RANGE[0], THING_RANGE[1]);
-
-            if (!rooms[roomName].cards.includes(newCardID)) {
-              cardAlreadyExists = false;
-            }
-          }
-        }
-      }
-      if (cardType == 3) {
-        maxInhabitantRange = INHABITANT_RANGE[1] - INHABITANT_RANGE[0];
-        let inhabitantCardCount = 0;
-        rooms[roomName].cards.forEach((card) => {
-          if (getCardTypeFromID(card) === 3) {
-            inhabitantCardCount++;
-          }
-        });
-
-        if (inhabitantCardCount < maxInhabitantRange) {
-          let cardAlreadyExists = true;
-          while (cardAlreadyExists) {
-            newCardID = getRandomInt(INHABITANT_RANGE[0], INHABITANT_RANGE[1]);
-
-            if (!rooms[roomName].cards.includes(newCardID)) {
-              cardAlreadyExists = false;
-            }
-          }
-        }
-      }
-
-      if (newCardID !== 0) {
-        // Set new card in room cards
-        rooms[roomName].cards.push(newCardID);
+      // skip turn
+      if (!cardType) {
         rooms[roomName].playerTurn =
           (rooms[roomName].playerTurn + 1) % rooms[roomName].players.length;
 
-        console.log(
-          `Next turn in ${roomName} with type ${cardType}, cardID ${newCardID}`
-        );
+        console.log(`Skip turn in ${roomName}`);
 
         io.to(roomName).emit("updateGameState", rooms[roomName]);
-      } else {
-        console.log(`Max cards of type ${cardType} reached`);
+      }
+      // add card
+      else {
+        let newCardID = 0;
+
+        if (cardType === 1) {
+          maxEventRange = EVENT_RANGE[1] - EVENT_RANGE[0];
+          let eventCardCount = 0;
+          rooms[roomName].cards.forEach((card) => {
+            if (getCardTypeFromID(card) === 1) {
+              eventCardCount++;
+            }
+          });
+
+          if (eventCardCount < maxEventRange) {
+            let cardAlreadyExists = true;
+            while (cardAlreadyExists) {
+              newCardID = getRandomInt(EVENT_RANGE[0], EVENT_RANGE[1]);
+
+              if (!rooms[roomName].cards.includes(newCardID)) {
+                cardAlreadyExists = false;
+              }
+            }
+          }
+        }
+        if (cardType === 2) {
+          maxThingRange = THING_RANGE[1] - THING_RANGE[0];
+          let thingCardCount = 0;
+          rooms[roomName].cards.forEach((card) => {
+            if (getCardTypeFromID(card) === 2) {
+              thingCardCount++;
+            }
+          });
+
+          if (thingCardCount < maxThingRange) {
+            let cardAlreadyExists = true;
+            while (cardAlreadyExists) {
+              newCardID = getRandomInt(THING_RANGE[0], THING_RANGE[1]);
+
+              if (!rooms[roomName].cards.includes(newCardID)) {
+                cardAlreadyExists = false;
+              }
+            }
+          }
+        }
+        if (cardType == 3) {
+          maxInhabitantRange = INHABITANT_RANGE[1] - INHABITANT_RANGE[0];
+          let inhabitantCardCount = 0;
+          rooms[roomName].cards.forEach((card) => {
+            if (getCardTypeFromID(card) === 3) {
+              inhabitantCardCount++;
+            }
+          });
+
+          if (inhabitantCardCount < maxInhabitantRange) {
+            let cardAlreadyExists = true;
+            while (cardAlreadyExists) {
+              newCardID = getRandomInt(
+                INHABITANT_RANGE[0],
+                INHABITANT_RANGE[1]
+              );
+
+              if (!rooms[roomName].cards.includes(newCardID)) {
+                cardAlreadyExists = false;
+              }
+            }
+          }
+        }
+
+        if (newCardID !== 0) {
+          // Set new card in room cards
+          rooms[roomName].cards.push(newCardID);
+          rooms[roomName].playerTurn =
+            (rooms[roomName].playerTurn + 1) % rooms[roomName].players.length;
+
+          console.log(
+            `Next turn in ${roomName} with type ${cardType}, cardID ${newCardID}`
+          );
+
+          io.to(roomName).emit("updateGameState", rooms[roomName]);
+        } else {
+          console.log(`Max cards of type ${cardType} reached`);
+        }
       }
     } else {
       console.log(

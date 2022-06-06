@@ -21,7 +21,11 @@ export const WaitingPage = (props: WaitingPageProps) => {
           <h3>{roomName}</h3>
         </div>
       </div>
-      <PlayerList players={gameState?.players} activePlayerIndex={null} />
+      <PlayerList
+        skipTurn={() => {}}
+        players={gameState?.players}
+        activePlayerIndex={null}
+      />
       {gameState?.players?.[0] === userName && (
         <div className="game-start">
           <h3> You're the host. </h3>

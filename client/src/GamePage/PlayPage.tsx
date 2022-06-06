@@ -23,9 +23,13 @@ export const PlayPage = (props: PlayPageProps) => {
 
   const [isThemeOpen, setIsThemeOpen] = useState(true);
 
+  const skipTurn = () => {
+    socketEmitters.nextTurn();
+  };
+
   return (
     <div className="game">
-      <RoomInfo gameState={gameState} userName={userName} roomName={roomName} />
+      <RoomInfo gameState={gameState} skipTurn={skipTurn} roomName={roomName} />
 
       <div
         className="game-board"
@@ -37,7 +41,7 @@ export const PlayPage = (props: PlayPageProps) => {
       >
         <div
           className="theme-card"
-          style={{ top: isThemeOpen ? "50%" : "-10%"}}
+          style={{ top: isThemeOpen ? "50%" : "-10%" }}
           onClick={() => {
             setIsThemeOpen(!isThemeOpen);
           }}
@@ -52,7 +56,7 @@ export const PlayPage = (props: PlayPageProps) => {
               socketEmitters={socketEmitters}
               disabled={!isYourTurn(gameState, userName)}
             />
-            {gameState?.cards?.map(card => {
+            {gameState?.cards?.map((card) => {
               if (getCardTypeFromID(card) === CardType.Event) {
                 return <Card key={card} id={card} />;
               }
@@ -64,7 +68,7 @@ export const PlayPage = (props: PlayPageProps) => {
               socketEmitters={socketEmitters}
               disabled={!isYourTurn(gameState, userName)}
             />
-            {gameState?.cards?.map(card => {
+            {gameState?.cards?.map((card) => {
               if (getCardTypeFromID(card) === CardType.Thing) {
                 return <Card key={card} id={card} />;
               }
@@ -76,7 +80,7 @@ export const PlayPage = (props: PlayPageProps) => {
               socketEmitters={socketEmitters}
               disabled={!isYourTurn(gameState, userName)}
             />
-            {gameState?.cards?.map(card => {
+            {gameState?.cards?.map((card) => {
               if (getCardTypeFromID(card) === CardType.Inhabitant) {
                 return <Card key={card} id={card} />;
               }
