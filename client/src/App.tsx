@@ -36,6 +36,17 @@ const App = () => {
   );
 
   useEffect(() => {
+    const lastRoomJoined = localStorage.getItem("lastRoomJoined");
+    const lastUserName = localStorage.getItem("lastUserName");
+
+    if (!!lastRoomJoined && !!lastUserName) {
+      setRoomName(lastRoomJoined);
+      setUserName(lastUserName);
+      setConnected(true);
+    }
+  }, []);
+
+  useEffect(() => {
     if (connected) {
       const socket = io(SERVER_IP);
 

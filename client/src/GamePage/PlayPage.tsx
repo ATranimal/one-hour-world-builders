@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GameState } from "../models/GameState";
 import { Card } from "../Card";
 import { isYourTurn } from "../util/Turn";
@@ -26,6 +26,12 @@ export const PlayPage = (props: PlayPageProps) => {
   const skipTurn = () => {
     socketEmitters.nextTurn();
   };
+
+  useEffect(() => {
+    // Store room ID for reloads
+    localStorage.setItem("lastRoomJoined", roomName);
+    localStorage.setItem("lastUserName", userName);
+  }, []);
 
   return (
     <div className="game">
