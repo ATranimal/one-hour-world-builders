@@ -53,7 +53,7 @@ io.on("connection", function (socket) {
       }
 
       // Delete room if not started and has no players
-      if (rooms[room].players.length === 0) {
+      if (rooms[room]?.players.length === 0) {
         delete rooms[room];
       }
     }
@@ -121,6 +121,7 @@ io.on("connection", function (socket) {
     }, ROOM_TIMEOUT);
   });
   ``;
+
   socket.on("nextTurn", (roomName, cardType) => {
     if (Object.keys(rooms).includes(roomName)) {
       // skip turn
@@ -220,6 +221,13 @@ io.on("connection", function (socket) {
         `User tried to nextTurn in room ${roomName} that doesn't exist`
       );
     }
+  });
+
+  socket.on("doesRoomExist", (roomName) => {
+    io.to(socket.id).emit(
+      "rejoinResponse",
+      Object.keys(rooms).includes(roomName)
+    );
   });
 });
 

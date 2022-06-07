@@ -10,8 +10,8 @@ import { CardType } from "./models/CardType";
 import { Rules } from "./Rules/Rules";
 import { RulesModal } from "./Rules/RulesModal";
 
-const SERVER_IP = "https://onehourworld.builders";
-// const SERVER_IP = "localhost:4001";
+// const SERVER_IP = "https://onehourworld.builders";
+const SERVER_IP = "localhost:4001";
 
 interface AppProps {
   name: string;
@@ -22,8 +22,11 @@ const App = () => {
   const [roomName, setRoomName] = useState("");
   const [userName, setUserName] = useState("");
   const [connected, setConnected] = useState(false);
+  const [rejoin, setRejoin] = useState(false);
+  const [create, setCreate] = useState(false);
   const [gameState, setGameState] = useState<GameState>(initialGameState);
   const [rulesOpen, setRulesOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   // For Testing
   // const [roomName, setRoomName] = useState("Test Room");
@@ -42,6 +45,7 @@ const App = () => {
     if (!!lastRoomJoined && !!lastUserName) {
       setRoomName(lastRoomJoined);
       setUserName(lastUserName);
+      setRejoin(true);
       setConnected(true);
     }
   }, []);
@@ -50,10 +54,49 @@ const App = () => {
     if (connected) {
       const socket = io(SERVER_IP);
 
-      socket.emit("join", roomName, userName);
+      if (rejoin) {
+        socket.emit("doesRoomExist", roomName);
+      } else {
+        socket.emit("doesRoomExist", roomName);
+      }
 
       socket.on("updateGameState", (gameState: GameState) => {
         setGameState(gameState);
+      });
+
+      socket.on("rejoinResponse", (roomExists: boolean) => {
+        if (rejoin) {
+          if (roomExists) {
+            socket.emit("join", roomName, userName);
+          } else {
+            setRoomName("");
+            setUserName("");
+            setRejoin(false);
+            setConnected(false);
+            localStorage.clear();
+          }
+        }
+        if (create) {
+          if (roomExists) {
+            setErrorMessage("A room by that name already exists.");
+            setRoomName("");
+            setUserName("");
+            setCreate(false);
+            setConnected(false);
+          } else {
+            socket.emit("join", roomName, userName);
+          }
+        } else {
+          if (!roomExists) {
+            setErrorMessage("There are no rooms by that name.");
+            setRoomName("");
+            setUserName("");
+            setCreate(false);
+            setConnected(false);
+          } else {
+            socket.emit("join", roomName, userName);
+          }
+        }
       });
 
       setSocketEmitters({
@@ -71,11 +114,11 @@ const App = () => {
     <div className="app">
       {!connected ? (
         <LoginPage
-          roomName={roomName}
           setRoomName={setRoomName}
-          userName={userName}
           setUserName={setUserName}
           setConnected={setConnected}
+          setCreate={setCreate}
+          errorMessage={errorMessage}
         />
       ) : (
         <GamePage
