@@ -7,8 +7,13 @@ interface LoginPageProps {
   setUserName: React.Dispatch<React.SetStateAction<string>>;
   setConnected: React.Dispatch<React.SetStateAction<boolean>>;
   setCreate: React.Dispatch<React.SetStateAction<boolean>>;
-  errorMessage: string;
+  errorMessage: number;
 }
+
+const ERROR_MESSAGES = {
+  0: "A room by that name already exists.",
+  1: "There are no rooms by that name.",
+};
 
 export const LoginPage = ({
   setRoomName,
@@ -80,6 +85,9 @@ export const LoginPage = ({
             value="Create"
             disabled={createRoom === null && createUser === null}
           />
+          {errorMessage === 0 && (
+            <p style={{ color: "red" }}>{ERROR_MESSAGES[0]}</p>
+          )}
         </form>
         <form onSubmit={(e) => handleSubmit(e, true)} className="login-form">
           <h1>Join a room</h1>
@@ -100,6 +108,9 @@ export const LoginPage = ({
             value="Enter"
             disabled={rejoinRoom === null && rejoinUser === null}
           />
+          {errorMessage === 1 && (
+            <p style={{ color: "red" }}>{ERROR_MESSAGES[1]}</p>
+          )}
         </form>
       </div>
       <div>

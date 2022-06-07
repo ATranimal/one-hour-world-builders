@@ -26,7 +26,7 @@ const App = () => {
   const [create, setCreate] = useState(false);
   const [gameState, setGameState] = useState<GameState>(initialGameState);
   const [rulesOpen, setRulesOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<number>(-1);
 
   // For Testing
   // const [roomName, setRoomName] = useState("Test Room");
@@ -75,10 +75,9 @@ const App = () => {
             setConnected(false);
             localStorage.clear();
           }
-        }
-        if (create) {
+        } else if (create) {
           if (roomExists) {
-            setErrorMessage("A room by that name already exists.");
+            setErrorMessage(0);
             setRoomName("");
             setUserName("");
             setCreate(false);
@@ -88,7 +87,7 @@ const App = () => {
           }
         } else {
           if (!roomExists) {
-            setErrorMessage("There are no rooms by that name.");
+            setErrorMessage(1);
             setRoomName("");
             setUserName("");
             setCreate(false);
