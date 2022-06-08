@@ -15,10 +15,10 @@ export const PlayerList = (props: PlayerListProps) => {
 
   return (
     <div className="player-count">
-      <label className="player-count-label">Players</label>
+      <h2 className="subtitle">Players</h2>
       {players?.map((player, idx) => {
         return (
-          <div
+          <p
             className={
               "player-name" +
               (activePlayerIndex === idx ? " active-player" : "")
@@ -26,7 +26,7 @@ export const PlayerList = (props: PlayerListProps) => {
             key={idx}
           >
             {player}
-          </div>
+          </p>
         );
       })}
       {activePlayerIndex !== null && (

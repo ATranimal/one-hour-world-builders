@@ -22,9 +22,9 @@ const App = () => {
   const [roomName, setRoomName] = useState("");
   const [userName, setUserName] = useState("");
   const [connected, setConnected] = useState(false);
+  const [gameState, setGameState] = useState<GameState>(initialGameState);
   const [rejoin, setRejoin] = useState(false);
   const [create, setCreate] = useState(false);
-  const [gameState, setGameState] = useState<GameState>(initialGameState);
   const [rulesOpen, setRulesOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState<number>(-1);
 
@@ -125,10 +125,13 @@ const App = () => {
           socketEmitters={socketEmitters}
           userName={userName}
           roomName={roomName}
+          setRulesOpen={setRulesOpen}
         />
       )}
       <Rules rulesOpen={rulesOpen} setRulesOpen={setRulesOpen} />
-      {rulesOpen && <RulesModal />}
+      {rulesOpen && (
+        <RulesModal rulesOpen={rulesOpen} setRulesOpen={setRulesOpen} />
+      )}
     </div>
   );
 };

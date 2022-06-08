@@ -12,10 +12,11 @@ interface GamePageProps {
   socketEmitters: SocketEmitters;
   userName: string;
   roomName: string;
+  setRulesOpen: any; // react dispatch
 }
 
 export const GamePage = (props: GamePageProps) => {
-  const { gameState, socketEmitters, userName, roomName } = props;
+  const { gameState, socketEmitters, userName, roomName, setRulesOpen } = props;
 
   const renderErrorPage = () => {
     return (
@@ -41,6 +42,7 @@ export const GamePage = (props: GamePageProps) => {
       socketEmitters={socketEmitters}
       userName={userName}
       roomName={roomName}
+      setRulesOpen={setRulesOpen}
     />
   );
 };

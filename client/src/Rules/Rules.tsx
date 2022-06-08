@@ -16,7 +16,7 @@ export const Rules = (props: RulesProp) => {
         setRulesOpen(!rulesOpen);
       }}
     >
-      {rulesOpen ? "Close Rules" : "Open Rules"}
+      {"Open Rules"}
     </div>
   );
 };

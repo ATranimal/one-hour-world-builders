@@ -57,7 +57,7 @@ export const LoginPage = ({
       <img
         src="logo.png"
         alt="One Hour World Builders Logo"
-        style={{ width: "20%", height: "auto", marginBottom: "24px" }}
+        style={{ width: "20%", height: "auto", margin: "5% auto 0" }}
       />
       <div
         style={{
@@ -67,20 +67,27 @@ export const LoginPage = ({
         }}
       >
         <form onSubmit={(e) => handleSubmit(e, false)} className="login-form">
-          <h1>Create Room</h1>
-          <label htmlFor="createRoom">Room Name</label>
+          <h1 className="title">Create Room</h1>
+          <label className="label" htmlFor="createRoom">
+            Room Name
+          </label>
           <input
+            className="input"
             value={createRoom}
             id="createRoom"
             onChange={(e) => setCreateRoom(e.target.value)}
           ></input>
-          <label htmlFor="createUser">User Name</label>
+          <label className="label" htmlFor="createUser">
+            User Name
+          </label>
           <input
+            className="input"
             value={createUser}
             id="createUser"
             onChange={(e) => setCreateUser(e.target.value)}
           ></input>
           <input
+            className="button"
             type="submit"
             value="Create"
             disabled={createRoom === null && createUser === null}
@@ -90,20 +97,27 @@ export const LoginPage = ({
           )}
         </form>
         <form onSubmit={(e) => handleSubmit(e, true)} className="login-form">
-          <h1>Join a room</h1>
-          <label htmlFor="roomName">Room Name</label>
+          <h1 className="title">Join a room</h1>
+          <label className="label" htmlFor="roomName">
+            Room Name
+          </label>
           <input
+            className="input"
             value={rejoinRoom}
             id="rejoinRoom"
             onChange={(e) => setRejoinRoom(e.target.value)}
           ></input>
-          <label htmlFor="rejoinUser">User Name</label>
+          <label className="label" htmlFor="rejoinUser">
+            User Name
+          </label>
           <input
+            className="input"
             value={rejoinUser}
             id="rejoinUser"
             onChange={(e) => setRejoinUser(e.target.value)}
           ></input>
           <input
+            className="button"
             type="submit"
             value="Enter"
             disabled={rejoinRoom === null && rejoinUser === null}
@@ -113,7 +127,7 @@ export const LoginPage = ({
           )}
         </form>
       </div>
-      <div>
+      <div style={{ marginBottom: "5%" }}>
         If you enjoy this app and want to support it, please consider buying a
         <a href="https://kaelandm.itch.io/one-hour-worldbuilders">
           {" "}

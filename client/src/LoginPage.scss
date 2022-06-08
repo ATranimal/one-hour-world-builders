@@ -1,23 +1,10 @@
 @import "./styles/_colors.scss";
 
-.selection-buttons {
-  button {
-    margin: 12px 24px;
-    width: 16em;
-    height: 6em;
-    font-size: 1.25em;
-    border-radius: 1em;
-    box-shadow: 2px 2px 6px 0px #666666;
-    border: 2px solid #444444;
-
-    &:hover {
-      background-color: #dddddd;
-    }
-  }
-}
-
 .login-page {
-  margin: 5% auto;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: space-between;
 }
 
 .login-form {
@@ -25,31 +12,6 @@
   flex-direction: column;
   margin: 0 auto;
 
-  max-width: 20%;
-
-  label {
-    margin-bottom: 8px;
-    letter-spacing: 0.15em;
-    text-align: left;
-  }
-
-  input {
-    margin-bottom: 24px;
-    border-radius: 0.5em;
-    box-shadow: 2px 2px 2px 0px #666666;
-    border: 2px solid #444444;
-    padding: 8px;
-    font-size: 16px;
-    letter-spacing: 0.15em;
-  }
-
-  button {
-    background-color: $bg-colour;
-    border: 0px;
-    font-size: 14px;
-
-    &:hover {
-      color: #550071;
-    }
-  }
+  gap: 8px;
+  text-align: left;
 }
