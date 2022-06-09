@@ -19,4 +19,12 @@
     max-height: 100%;
     padding: 4px;
   }
+
+  transition: opacity 0.2s;
+
+  &.active {
+    &:hover {
+      opacity: 0.8;
+    }
+  }
 }

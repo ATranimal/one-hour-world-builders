@@ -11,8 +11,6 @@ interface PlayerListProps {
 export const PlayerList = (props: PlayerListProps) => {
   const { players, activePlayerIndex, skipTurn } = props;
 
-  console.log(activePlayerIndex);
-
   return (
     <div className="player-count">
       <h2 className="subtitle">Players</h2>
@@ -31,9 +29,13 @@ export const PlayerList = (props: PlayerListProps) => {
       })}
       {activePlayerIndex !== null && (
         <button
-          onClick={() => {
+          className="button-secondary"
+          onClick={(e: any) => {
+            e.preventDefault();
+            e.stopPropagation();
             skipTurn();
           }}
+          style={{ marginTop: "8px" }}
         >
           Skip Turn
         </button>

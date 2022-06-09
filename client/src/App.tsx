@@ -10,8 +10,8 @@ import { CardType } from "./models/CardType";
 import { Rules } from "./Rules/Rules";
 import { RulesModal } from "./Rules/RulesModal";
 
-// const SERVER_IP = "https://onehourworld.builders";
-const SERVER_IP = "localhost:4001";
+const SERVER_IP = "https://onehourworld.builders";
+// const SERVER_IP = "localhost:4001";
 
 interface AppProps {
   name: string;
@@ -23,8 +23,8 @@ const App = () => {
   const [userName, setUserName] = useState("");
   const [connected, setConnected] = useState(false);
   const [gameState, setGameState] = useState<GameState>(initialGameState);
-  const [rejoin, setRejoin] = useState(false);
-  const [create, setCreate] = useState(false);
+  const [rejoin, setRejoin] = useState(true);
+  const [create, setCreate] = useState(true);
   const [rulesOpen, setRulesOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState<number>(-1);
 

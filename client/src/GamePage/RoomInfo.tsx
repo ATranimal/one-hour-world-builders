@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { GameState } from "../models/GameState";
 import { PlayerList } from "./PlayerList";
-import { isYourTurn } from "../util/Turn";
 
 import "./RoomInfo.scss";
 
@@ -21,12 +20,28 @@ export const RoomInfo = (props: RoomInfoProps) => {
       className={"room-info" + (isOpen ? " opened" : "")}
       onClick={() => setIsOpen(!isOpen)}
     >
-      <div className="room-name">{roomName}</div>
-      <PlayerList
-        players={gameState?.players}
-        activePlayerIndex={gameState.playerTurn}
-        skipTurn={skipTurn}
-      />
+      {isOpen ? (
+        <>
+          <h2 className="title">{`${roomName}, hosted by ${gameState.players?.[0]}.`}</h2>
+          <h3 className="subtitle">{`It is ${
+            gameState.players?.[gameState.playerTurn ?? 0]
+          }'s turn`}</h3>
+
+          <PlayerList
+            players={gameState?.players}
+            activePlayerIndex={gameState.playerTurn}
+            skipTurn={skipTurn}
+          />
+        </>
+      ) : (
+        <>
+          <h2 className="title">Player List</h2>
+          <h3 className="subtitle">{`It is ${
+            gameState.players?.[gameState.playerTurn ?? 0]
+          }'s turn`}</h3>
+          <h3 className="title">V</h3>
+        </>
+      )}
     </div>
   );
 };

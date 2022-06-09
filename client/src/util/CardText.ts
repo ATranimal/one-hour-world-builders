@@ -99,10 +99,10 @@ export const getColourFromCardType = (cardType: CardType): string => {
   let colour = "";
   switch (cardType) {
     case CardType.Theme:
-      colour = "#9ec5de";
+      colour = "#9fc4de";
       break;
     case CardType.Event:
-      colour = "#c8e6cd";
+      colour = "#c8e6ce";
       break;
     case CardType.Thing:
       colour = "#f7f1bf";

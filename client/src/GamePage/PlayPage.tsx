@@ -9,7 +9,7 @@ import { DrawPile } from "./DrawPile";
 
 import "./PlayPage.scss";
 import { getCardTypeFromID } from "../util/CardText";
-import CustomScroll from "react-custom-scroll";
+import { ThemeCard } from "./ThemeCard";
 
 interface PlayPageProps {
   gameState: GameState;
@@ -20,8 +20,6 @@ interface PlayPageProps {
 
 export const PlayPage = (props: PlayPageProps) => {
   const { gameState, socketEmitters, roomName, userName } = props;
-
-  const [isThemeOpen, setIsThemeOpen] = useState(true);
 
   const skipTurn = () => {
     socketEmitters.nextTurn();
@@ -37,23 +35,8 @@ export const PlayPage = (props: PlayPageProps) => {
     <div className="game">
       <RoomInfo gameState={gameState} skipTurn={skipTurn} roomName={roomName} />
 
-      <div
-        className="game-board"
-        onClick={() => {
-          if (isThemeOpen) {
-            setIsThemeOpen(false);
-          }
-        }}
-      >
-        <div
-          className="theme-card"
-          style={{ top: isThemeOpen ? "50%" : "-10%" }}
-          onClick={() => {
-            setIsThemeOpen(!isThemeOpen);
-          }}
-        >
-          <Card id={gameState && gameState.cards ? gameState.cards[0] : 1} />
-        </div>
+      <div className="game-board">
+        <ThemeCard gameState={gameState} />
 
         <div className="card-buttons">
           <div className="card-rows">

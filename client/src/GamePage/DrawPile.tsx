@@ -21,7 +21,7 @@ export const DrawPile = (props: DrawPileProps) => {
   return (
     <div className="draw-pile">
       <div
-        className="card"
+        className={`card${!disabled && " active"}`}
         style={{
           backgroundColor: getColourFromCardType(cardType),
           boxShadow: disabled ? "" : "4px 4px 4px 4px #98b4de",
