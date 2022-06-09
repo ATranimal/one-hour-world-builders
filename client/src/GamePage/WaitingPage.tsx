@@ -8,11 +8,10 @@ interface WaitingPageProps {
   socketEmitters: SocketEmitters;
   roomName: string;
   userName: string;
-  setRulesOpen: any; // react dispatch
 }
 
 export const WaitingPage = (props: WaitingPageProps) => {
-  const { gameState, socketEmitters, roomName, userName, setRulesOpen } = props;
+  const { gameState, socketEmitters, roomName, userName } = props;
 
   const isHost = gameState.players?.[0] === userName;
 
@@ -38,7 +37,6 @@ export const WaitingPage = (props: WaitingPageProps) => {
             type="button"
             onClick={() => {
               socketEmitters.startGame();
-              setRulesOpen(true);
             }}
             value="Click to Start"
           />

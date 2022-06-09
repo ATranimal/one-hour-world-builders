@@ -33,6 +33,7 @@ export const GamePage = (props: GamePageProps) => {
       socketEmitters={socketEmitters}
       userName={userName}
       roomName={roomName}
+      setRulesOpen={setRulesOpen}
     />
   ) : gameState.started === null ? (
     renderErrorPage()
@@ -42,7 +43,6 @@ export const GamePage = (props: GamePageProps) => {
       socketEmitters={socketEmitters}
       userName={userName}
       roomName={roomName}
-      setRulesOpen={setRulesOpen}
     />
   );
 };

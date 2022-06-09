@@ -16,10 +16,11 @@ interface PlayPageProps {
   socketEmitters: SocketEmitters;
   roomName: string;
   userName: string;
+  setRulesOpen: any;
 }
 
 export const PlayPage = (props: PlayPageProps) => {
-  const { gameState, socketEmitters, roomName, userName } = props;
+  const { gameState, socketEmitters, roomName, userName, setRulesOpen } = props;
 
   const skipTurn = () => {
     socketEmitters.nextTurn();
@@ -29,6 +30,11 @@ export const PlayPage = (props: PlayPageProps) => {
     // Store room ID for reloads
     localStorage.setItem("lastRoomJoined", roomName);
     localStorage.setItem("lastUserName", userName);
+
+    if (localStorage.getItem("readRules") !== "true") {
+      setRulesOpen(true);
+      localStorage.setItem("readRules", "true");
+    }
   }, []);
 
   return (
