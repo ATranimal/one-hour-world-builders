@@ -53,7 +53,7 @@ io.on("connection", function (socket) {
       }
 
       // Delete room if not started and has no players
-      if (rooms[room]?.players.length === 0) {
+      if (rooms[room] && rooms[room].players.length === 0) {
         delete rooms[room];
       }
     }
