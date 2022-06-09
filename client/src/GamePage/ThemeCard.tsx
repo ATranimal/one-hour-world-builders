@@ -17,10 +17,13 @@ export const ThemeCard = ({ gameState }: { gameState: GameState }) => {
       }}
     >
       {isThemeRevealed ? (
-        <Card id={gameState && gameState.cards ? gameState.cards[0] : 1} />
+        <Card
+          id={gameState && gameState.cards ? gameState.cards[0] : 1}
+          isActive
+        />
       ) : (
         <div
-          className="card"
+          className="card active"
           style={{
             backgroundColor: getColourFromCardType(CardType.Theme),
             boxShadow: "4px 4px 4px 4px #98b4de",

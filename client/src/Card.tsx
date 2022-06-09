@@ -8,16 +8,17 @@ import "./Card.scss";
 
 interface CardProps {
   id: number;
+  isActive?: boolean;
 }
 
 export const Card = (props: CardProps) => {
-  const { id } = props;
+  const { id, isActive } = props;
 
   return (
     <div
-      className="card"
+      className={`card${isActive ? " active" : ""}`}
       style={{
-        backgroundColor: getColourFromId(id)
+        backgroundColor: getColourFromId(id),
       }}
     >
       <div className="text">

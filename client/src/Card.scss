@@ -14,6 +14,7 @@
   padding: 8px;
   line-height: 1.25;
   margin: 8px 24px;
+  top: 0px;
 
   .text {
     max-height: 100%;
@@ -21,10 +22,12 @@
   }
 
   transition: opacity 0.2s;
+  transition: top 0.2s;
 
   &.active {
     &:hover {
-      opacity: 0.8;
+      opacity: 0.85;
+      top: -8px;
     }
   }
 }
