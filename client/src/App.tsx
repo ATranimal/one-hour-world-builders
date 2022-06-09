@@ -23,7 +23,7 @@ const App = () => {
   const [userName, setUserName] = useState("");
   const [connected, setConnected] = useState(false);
   const [gameState, setGameState] = useState<GameState>(initialGameState);
-  const [rejoin, setRejoin] = useState(true);
+  const [rejoin, setRejoin] = useState(false);
   const [create, setCreate] = useState(true);
   const [rulesOpen, setRulesOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState<number>(-1);
@@ -65,6 +65,9 @@ const App = () => {
       });
 
       socket.on("rejoinResponse", (roomExists: boolean) => {
+        console.log(`rejoin: ${rejoin}`);
+        console.log(`roomExists: ${roomExists}`);
+        console.log(`create: ${create}`);
         if (rejoin) {
           if (roomExists) {
             socket.emit("join", roomName, userName);
