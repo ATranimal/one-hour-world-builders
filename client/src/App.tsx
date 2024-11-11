@@ -10,8 +10,8 @@ import { CardType } from "./models/CardType";
 import { Rules } from "./Rules/Rules";
 import { RulesModal } from "./Rules/RulesModal";
 
-const SERVER_IP = "https://onehourworld.builders";
-// const SERVER_IP = "localhost:4001";
+// const SERVER_IP = "https://onehourworld.builders";
+const SERVER_IP = "localhost:4001";
 
 interface AppProps {
   name: string;
